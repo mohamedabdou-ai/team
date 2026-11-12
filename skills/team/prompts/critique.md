@@ -1,4 +1,4 @@
-<!-- Team for Claude Code · Copyright 2026 Mohammed Abdo · Apache-2.0 · https://github.com/Engmohammedabdo/team -->
+<!-- Team for Claude Code · Copyright 2026 Mohamed Abdou · Apache-2.0 · https://github.com/mohamedabdou-ai/team -->
 ## Step: debate, respond to your teammate's proposal
 
 {{TEAMMATE}} wrote an independent proposal for the same request. It is attached below, together with your own proposal for reference.

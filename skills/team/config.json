@@ -1,5 +1,5 @@
 {
-  "_copyright": "Team for Claude Code - Copyright 2026 Mohammed Abdo - Apache-2.0 - https://github.com/Engmohammedabdo/team",
+  "_copyright": "Team for Claude Code - Copyright 2026 Mohamed Abdou - Apache-2.0 - https://github.com/mohamedabdou-ai/team",
   "_comment": "Settings for the team colleagues. null means: use that tool's own default (from your Claude / Codex settings). codex.lite runs Codex without the extras code work does not need (plugins, apps, memories, browser, computer use); image generation stays on.",
   "codex": { "model": null, "effort": "high", "lite": true },
   "claude": { "model": null, "effort": null },

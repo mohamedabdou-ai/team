@@ -1,4 +1,4 @@
-<!-- Team for Claude Code · Copyright 2026 Mohammed Abdo · Apache-2.0 · https://github.com/Engmohammedabdo/team -->
+<!-- Team for Claude Code · Copyright 2026 Mohamed Abdou · Apache-2.0 · https://github.com/mohamedabdou-ai/team -->
 ## Step: review your teammate's work (round {{ROUND}})
 
 {{IMPLEMENTER}} implemented lane "{{LANE_ID}}" ({{LANE_TITLE}}) in this working directory, which is a separate git worktree.

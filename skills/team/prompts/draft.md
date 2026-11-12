@@ -1,4 +1,4 @@
-<!-- Team for Claude Code · Copyright 2026 Mohammed Abdo · Apache-2.0 · https://github.com/Engmohammedabdo/team -->
+<!-- Team for Claude Code · Copyright 2026 Mohamed Abdou · Apache-2.0 · https://github.com/mohamedabdou-ai/team -->
 ## Step: write the joint design
 
 You and {{TEAMMATE}} each proposed a design independently; if there was a debate round, your responses to each other are attached as well. Write the single joint design document the team will present to the owner.

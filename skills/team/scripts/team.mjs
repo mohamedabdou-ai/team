@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Team for Claude Code
-// Copyright 2026 Mohammed Abdo. Licensed under the Apache License 2.0 (see LICENSE and NOTICE).
-// https://github.com/Engmohammedabdo/team
+// Copyright 2026 Mohamed Abdou. Licensed under the Apache License 2.0 (see LICENSE and NOTICE).
+// https://github.com/mohamedabdou-ai/team
 //
 // team.mjs — runs the Claude + Codex team for the `team` skill.
 //
@@ -26,12 +26,13 @@ const IS_WIN = process.platform === 'win32';
 // Who made this. It travels with every run (state.json), every merge commit and every report.
 const ORIGIN = Object.freeze({
   name: 'Team for Claude Code',
-  author: 'Mohammed Abdo',
-  url: 'https://github.com/Engmohammedabdo/team',
+  author: 'Mohamed Abdou',
+  authorAr: 'محمد عبده',
+  url: 'https://github.com/mohamedabdou-ai/team',
   id: 'tm-6427816b',
 });
 const SIGNATURE = {
-  ar: `اتعمل بـ ${ORIGIN.name} من ${ORIGIN.author} · ${ORIGIN.url}`,
+  ar: `اتعمل بـ ${ORIGIN.name} من ${ORIGIN.authorAr} · ${ORIGIN.url}`,
   en: `Made with ${ORIGIN.name} by ${ORIGIN.author} · ${ORIGIN.url}`,
 };
 

@@ -2,7 +2,7 @@
 
 **Claude and Codex work as one team on your code.** They each propose a design, argue it out with evidence from the code, agree on a plan, build their parts in parallel, and review each other's work. You approve the design once and get a report at the end.
 
-By [Mohammed Abdo](https://github.com/Engmohammedabdo). Not affiliated with Anthropic or OpenAI.
+By [Mohamed Abdou (محمد عبده)](https://store.pyraai.cloud). Not affiliated with Anthropic or OpenAI.
 
 ## How a run goes
 
@@ -33,8 +33,8 @@ Without Codex, Claude covers every Codex job (and the other way round), but you 
 In Claude Code:
 
 ```
-/plugin marketplace add Engmohammedabdo/team
-/plugin install team@mohammed-abdo
+/plugin marketplace add mohamedabdou-ai/carousel-studio
+/plugin install team@mohamed-abdou
 ```
 
 Manual install on Windows: clone the repo and run `install.ps1`.
@@ -68,7 +68,7 @@ Tested on Windows 11 with Claude Code 2.1 and Codex CLI 0.163. macOS and Linux s
 
 Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
 
-You may use, change and redistribute this work, including commercially. If you redistribute it or build on it, keep the `NOTICE` file and the copyright lines, and credit it as **"Based on Team for Claude Code by Mohammed Abdo"**.
+You may use, change and redistribute this work, including commercially. If you redistribute it or build on it, keep the `NOTICE` file and the copyright lines, and credit it as **"Based on Team for Claude Code by Mohamed Abdou"**.
 
 ---
 

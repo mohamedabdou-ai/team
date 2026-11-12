@@ -1,4 +1,4 @@
-# Team for Claude Code - Copyright 2026 Mohammed Abdo - Apache-2.0 - https://github.com/Engmohammedabdo/team
+# Team for Claude Code - Copyright 2026 Mohamed Abdou - Apache-2.0 - https://github.com/mohamedabdou-ai/team
 # Manual install on Windows, without the plugin system: copies the skill into Claude Code's
 # personal skills folder. Run again to update. Your config.json there is kept if it already exists.
 $src  = Join-Path $PSScriptRoot "skills\team"

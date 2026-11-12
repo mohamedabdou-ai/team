@@ -4,10 +4,10 @@ description: Use when the user types /team or /team resume, or asks for Claude a
 argument-hint: "<what to build or change> | resume"
 license: Apache-2.0
 metadata:
-  author: Mohammed Abdo
-  url: https://github.com/Engmohammedabdo/team
+  author: Mohamed Abdou
+  url: https://github.com/mohamedabdou-ai/team
 ---
-<!-- Team for Claude Code · Copyright 2026 Mohammed Abdo · Apache-2.0 · see LICENSE and NOTICE -->
+<!-- Team for Claude Code · Copyright 2026 Mohamed Abdou · Apache-2.0 · see LICENSE and NOTICE -->
 
 # Team: Claude + Codex
 

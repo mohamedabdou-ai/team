@@ -1,4 +1,4 @@
-<!-- Team for Claude Code · Copyright 2026 Mohammed Abdo · Apache-2.0 · https://github.com/Engmohammedabdo/team -->
+<!-- Team for Claude Code · Copyright 2026 Mohamed Abdou · Apache-2.0 · https://github.com/mohamedabdou-ai/team -->
 ## Step: final revision of the joint design
 
 {{TEAMMATE}} reviewed your draft and raised objections. Their review and your current draft are attached.
