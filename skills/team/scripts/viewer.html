@@ -1,0 +1,432 @@
+<!doctype html>
+<!-- Team for Claude Code · Copyright 2026 Mohammed Abdo · Apache-2.0 · https://github.com/Engmohammedabdo/team -->
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>غرفة اجتماع الفريق</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+<style>
+  :root {
+    --bg: #f5f3ef;
+    --surface: #ffffff;
+    --surface-2: #faf9f7;
+    --ink: #1f1d1a;
+    --muted: #6b665e;
+    --line: #e6e1d8;
+    --claude: #c15f3c;
+    --claude-soft: #fbeee8;
+    --codex: #1d7a5a;
+    --codex-soft: #e7f4ee;
+    --owner: #3d5a99;
+    --owner-soft: #eaf0fb;
+    --ok: #1d7a5a;
+    --warn: #b7791f;
+    --warn-soft: #fdf3e1;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(31, 29, 26, .06), 0 4px 16px rgba(31, 29, 26, .04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #171614;
+      --surface: #201f1c;
+      --surface-2: #262420;
+      --ink: #efebe4;
+      --muted: #a59f95;
+      --line: #35322d;
+      --claude: #e08a68;
+      --claude-soft: #3a2a23;
+      --codex: #4cc391;
+      --codex-soft: #1d3329;
+      --owner: #8fb0f0;
+      --owner-soft: #232b3b;
+      --ok: #4cc391;
+      --warn: #e2b04a;
+      --warn-soft: #3a3020;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 24px 16px 64px; }
+  header.top {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  h1 { font-size: 22px; margin: 0; font-weight: 700; letter-spacing: -.2px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600;
+    background: var(--surface); border: 1px solid var(--line);
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+  .dot.live { background: var(--ok); }
+  .request {
+    background: var(--owner-soft); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 12px 16px; margin-bottom: 16px;
+  }
+  .request b { color: var(--owner); }
+
+  /* Steps */
+  .steps { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 20px; padding: 0; list-style: none; }
+  .steps li {
+    font-size: 13px; padding: 4px 10px 4px 12px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--line); color: var(--muted);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .steps li.done { color: var(--ink); }
+  .steps li.done::before { content: "✓"; color: var(--ok); font-weight: 700; }
+  .steps li.now { color: var(--ink); border-color: var(--ok); background: var(--codex-soft); font-weight: 600; }
+  .steps li.now::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
+  .steps li.wait { border-color: var(--owner); background: var(--owner-soft); color: var(--ink); font-weight: 600; }
+
+  /* Now panel */
+  .section-title { font-size: 13px; font-weight: 700; color: var(--muted); margin: 0 0 8px; letter-spacing: .2px; }
+  .now { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .worker {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px 16px; box-shadow: var(--shadow);
+  }
+  .worker.claude { border-top: 3px solid var(--claude); }
+  .worker.codex { border-top: 3px solid var(--codex); }
+  .worker .head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+  .who { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; }
+  .avatar {
+    width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center;
+    color: #fff; font-size: 13px; font-weight: 700; flex: none;
+  }
+  .avatar.claude { background: var(--claude); }
+  .avatar.codex { background: var(--codex); }
+  .timer { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; }
+  .doing { margin: 0 0 8px; }
+  .typing span { display: inline-block; width: 5px; height: 5px; margin: 0 1px; border-radius: 50%; background: currentColor; opacity: .3; animation: blink 1.2s infinite; }
+  .typing span:nth-child(2) { animation-delay: .2s; }
+  .typing span:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 50% { opacity: 1; } }
+  .acts { list-style: none; margin: 0; padding: 0; font-size: 13px; color: var(--muted); }
+  .acts li { padding: 3px 0; border-top: 1px dashed var(--line); display: flex; gap: 8px; }
+  .acts li:first-child { border-top: 0; }
+  .acts .k { flex: none; width: 54px; color: var(--ink); font-weight: 600; }
+  .acts code { direction: ltr; unicode-bidi: isolate; font-size: 12px; overflow-wrap: anywhere; }
+  .idle {
+    background: var(--surface); border: 1px dashed var(--line); border-radius: var(--radius);
+    padding: 14px 16px; color: var(--muted);
+  }
+  .idle.owner { border: 1px solid var(--owner); background: var(--owner-soft); color: var(--ink); }
+
+  /* Feed */
+  .feed { display: flex; flex-direction: column; gap: 14px; }
+  .msg { display: flex; gap: 10px; max-width: 88%; }
+  .msg.claude { align-self: flex-start; }
+  .msg.codex { align-self: flex-end; flex-direction: row-reverse; }
+  .bubble {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 12px 16px; box-shadow: var(--shadow); min-width: 0; flex: 1;
+  }
+  .msg.claude .bubble { border-top-right-radius: 4px; background: linear-gradient(var(--claude-soft), var(--surface) 64px); }
+  .msg.codex .bubble { border-top-left-radius: 4px; background: linear-gradient(var(--codex-soft), var(--surface) 64px); }
+  .bubble .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .bubble .meta strong { color: var(--ink); font-size: 14px; }
+  .badge { font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px; }
+  .badge.ok { background: var(--codex-soft); color: var(--ok); }
+  .badge.warn { background: var(--warn-soft); color: var(--warn); }
+  .tldr { font-weight: 600; margin: 4px 0 8px; }
+  .body { position: relative; overflow: hidden; }
+  .body.clip { max-height: 260px; }
+  .body.clip::after {
+    content: ""; position: absolute; inset: auto 0 0 0; height: 70px;
+    background: linear-gradient(transparent, var(--surface));
+  }
+  .more {
+    margin-top: 6px; background: none; border: 0; padding: 0; cursor: pointer;
+    color: var(--owner); font: inherit; font-size: 13px; font-weight: 600;
+  }
+  .md h1, .md h2, .md h3 { font-size: 15px; margin: 12px 0 4px; }
+  .md p { margin: 6px 0; }
+  .md ul, .md ol { margin: 6px 0; padding-inline-start: 22px; }
+  .md table { border-collapse: collapse; margin: 8px 0; font-size: 13px; display: block; overflow-x: auto; }
+  .md th, .md td { border: 1px solid var(--line); padding: 4px 8px; text-align: start; vertical-align: top; }
+  .md pre { direction: ltr; text-align: left; background: var(--surface-2); padding: 10px; border-radius: 8px; overflow-x: auto; font-size: 12.5px; }
+  .md code { direction: ltr; unicode-bidi: isolate; background: var(--surface-2); padding: 0 4px; border-radius: 4px; font-size: 12.5px; }
+  .md pre code { background: none; padding: 0; }
+  .empty { color: var(--muted); text-align: center; padding: 40px 0; }
+
+  .files { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 20px; }
+  .files button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 6px 12px;
+  }
+  .files button:hover { border-color: var(--owner); }
+  dialog {
+    width: min(900px, 94vw); max-height: 86vh; border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--surface); color: var(--ink); padding: 0;
+  }
+  dialog::backdrop { background: rgba(0, 0, 0, .35); }
+  dialog .dhead { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--surface); border-bottom: 1px solid var(--line); }
+  dialog .dbody { padding: 8px 20px 20px; }
+  dialog button.close { font: inherit; background: none; border: 1px solid var(--line); border-radius: 8px; padding: 2px 10px; cursor: pointer; color: var(--ink); }
+  .foot { margin-top: 28px; font-size: 12px; color: var(--muted); text-align: center; }
+  .ticker {
+    position: fixed; inset: auto 12px 12px 12px; max-width: 1016px; margin: 0 auto;
+    background: var(--ink); color: var(--bg); border-radius: 12px; padding: 8px 14px;
+    display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .18); opacity: 0; transform: translateY(8px);
+    transition: opacity .2s, transform .2s; pointer-events: none;
+  }
+  .ticker.show { opacity: 1; transform: none; pointer-events: auto; }
+  .ticker .t-text { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ticker .avatar { width: 22px; height: 22px; font-size: 12px; border-radius: 6px; }
+  .wrap { padding-bottom: 96px; }
+  @media (max-width: 640px) { .msg { max-width: 100%; } h1 { font-size: 19px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>غرفة اجتماع الفريق</h1>
+    <span class="pill"><span class="dot" id="live-dot"></span><span id="phase">بيحمّل…</span><span class="timer" id="total"></span></span>
+  </header>
+  <div class="request" id="request" hidden></div>
+  <ul class="steps" id="steps"></ul>
+  <div class="files" id="files"></div>
+  <p class="section-title">دلوقتي</p>
+  <div class="now" id="now"></div>
+  <p class="section-title">المحضر</p>
+  <div class="feed" id="feed"><div class="empty">لسه مفيش رسايل.</div></div>
+  <p class="foot">الصفحة بتتحدّث لوحدها كل ثانيتين.</p>
+</div>
+<div class="ticker" id="ticker" title="اطلع لفوق تشوف التفاصيل"></div>
+<dialog id="doc"><div class="dhead"><strong id="doc-title"></strong><button class="close" onclick="this.closest('dialog').close()">قفل</button></div><div class="dbody md" id="doc-body"></div></dialog>
+
+<script>
+const NAME = { claude: 'Claude', codex: 'Codex' };
+const OTHER = { claude: 'codex', codex: 'claude' };
+const PHASE = {
+  discussion: 'النقاش', checkpoint: 'مستني موافقتك', implementation: 'التنفيذ والمراجعة',
+  merging: 'الدمج', merged: 'اتدمج', verified: 'اتفحص', done: 'خلصوا',
+};
+const DOING = {
+  propose: () => 'بيكتب تصوّره لوحده',
+  critique: (a) => `بيرد على تصوّر ${NAME[OTHER[a]]}`,
+  draft: () => 'بيكتب التصميم المشترك',
+  signoff: () => 'بيراجع مسودة التصميم',
+  revise: () => 'بيعدّل التصميم حسب الملاحظات',
+  edits: () => 'بيطبّق قراراتك على التصميم',
+  implement: () => 'بيبني الجزء بتاعه',
+  review: (a) => `بيراجع شغل ${NAME[OTHER[a]]}`,
+  fix: (a) => `بيصلّح ملاحظات ${NAME[OTHER[a]]}`,
+  consult: () => 'بيدّي رأيه في مشكلة ظهرت',
+  ask: () => 'بيشتغل على طلب',
+};
+const STEPS_BIG = [
+  ['propose', 'التصوّرات'], ['critique', 'الردود'], ['draft', 'المسودة'], ['signoff', 'مراجعة المسودة'],
+  ['checkpoint', 'موافقتك'], ['implement', 'التنفيذ'], ['review', 'المراجعة والتصليح'], ['merge', 'الدمج'], ['done', 'خلص'],
+];
+const STEPS_SMALL = [['implement', 'التنفيذ'], ['review', 'المراجعة والتصليح'], ['merge', 'الدمج'], ['done', 'خلص']];
+const STEPS_QUICK = [
+  ['propose', 'التصوّرات'], ['draft', 'التصميم'], ['checkpoint', 'موافقتك'],
+  ['implement', 'التنفيذ'], ['review', 'المراجعة والتصليح'], ['merge', 'الدمج'], ['done', 'خلص'],
+];
+const KIND = { run: 'شغّل', done: 'شغّل', say: 'قال', edit: 'عدّل', read: 'قرا', find: 'دوّر', think: 'فكّر', tool: 'استخدم' };
+
+let lastFeedKey = '';
+let lastRun = '';
+let snapshot = null;
+
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function md(text) {
+  if (window.marked && window.DOMPurify) return DOMPurify.sanitize(marked.parse(String(text || ''), { gfm: true, breaks: false }));
+  return `<div style="white-space:pre-wrap">${esc(text)}</div>`;
+}
+function clock(sec) {
+  sec = Math.max(0, Math.round(sec));
+  const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+  return (h ? `${h}:${String(m).padStart(2, '0')}` : `${m}`) + `:${String(s).padStart(2, '0')}`;
+}
+function since(iso) { return iso ? (Date.now() - Date.parse(iso)) / 1000 : 0; }
+
+function verdictBadge(body) {
+  const v = /VERDICT\s*:\s*\**\s*([A-Z_]+)/.exec(body || '');
+  if (v) {
+    if (v[1].startsWith('APPROVE')) return '<span class="badge ok">موافق ✓</span>';
+    if (v[1].startsWith('OBJECTION')) return '<span class="badge warn">عنده اعتراضات</span>';
+    if (v[1].startsWith('CHANGES')) return '<span class="badge warn">طالب تعديلات</span>';
+  }
+  const d = /DECISION\s*:\s*\**\s*(AGREE|COUNTER)/.exec(body || '');
+  if (d) return d[1] === 'AGREE' ? '<span class="badge ok">موافق على التعديل</span>' : '<span class="badge warn">عنده اقتراح تاني</span>';
+  const st = /STATUS\s*:\s*\**\s*(DONE|PARTIAL)/.exec(body || '');
+  if (st) return st[1] === 'DONE' ? '<span class="badge ok">خلّص ✓</span>' : '<span class="badge warn">خلّص جزء</span>';
+  return '';
+}
+
+function renderSteps(s) {
+  const list = s.mode === 'small' || s.small ? STEPS_SMALL : s.mode === 'quick' ? STEPS_QUICK : STEPS_BIG;
+  // Sub-steps light up the main step they belong to.
+  const MAIN = { fix: 'review', revise: 'signoff', edits: 'checkpoint', consult: 'implement' };
+  const doneSteps = new Set((s.history || []).map((h) => MAIN[h.step] || h.step));
+  const running = s.running ? MAIN[s.running.step] || s.running.step : null;
+  const order = list.map((x) => x[0]);
+  const phaseIndex = { discussion: 0, checkpoint: order.indexOf('checkpoint'), implementation: order.indexOf('implement'), merging: order.indexOf('merge'), merged: order.indexOf('merge') + 1, verified: order.indexOf('merge') + 1, done: order.length }[s.phase] ?? 0;
+  document.getElementById('steps').innerHTML = list.map(([key, label], i) => {
+    let cls = '';
+    if (key === running) cls = 'now';
+    else if (key === 'checkpoint' && s.phase === 'checkpoint' && !running) cls = 'wait';
+    else if (doneSteps.has(key) || i < phaseIndex || (key === 'done' && s.phase === 'done')) cls = 'done';
+    return `<li class="${cls}">${esc(label)}</li>`;
+  }).join('');
+}
+
+function renderNow(s) {
+  const el = document.getElementById('now');
+  const r = s.running;
+  if (r && r.jobs?.length) {
+    el.innerHTML = r.jobs.map((j) => {
+      const a = j.ran_as || j.agent;
+      const doing = (DOING[r.step] || DOING.ask)(j.agent);
+      const live = j.status === 'running';
+      const acts = (j.activity || []).slice(-6).reverse().map((x) =>
+        `<li><span class="k">${esc(KIND[x.kind] || '·')}</span><span>${x.code ? `<code>${esc(x.text)}</code>` : esc(x.text)}${x.kind === 'done' ? (x.exit === 0 ? ' ✓' : ` (خرج ${esc(x.exit)})`) : ''}</span></li>`).join('');
+      const cover = a !== j.agent ? ` <span class="badge warn">بدل ${NAME[j.agent]}</span>` : '';
+      const state = live ? `<span class="typing"><span></span><span></span><span></span></span>`
+        : j.status === 'ok' ? '<span class="badge ok">خلّص ✓</span>' : j.status === 'pending' ? '<span class="badge">مستني</span>' : `<span class="badge warn">${esc(j.status)}</span>`;
+      return `<div class="worker ${a}">
+        <div class="head"><span class="who"><span class="avatar ${a}">${a === 'claude' ? 'C' : 'X'}</span>${NAME[a]}${cover}</span><span class="timer" data-start="${esc(j.started || '')}" data-live="${live ? 1 : 0}" data-sec="${esc(j.seconds ?? '')}"></span></div>
+        <p class="doing">${esc(doing)} ${state}</p>
+        ${acts ? `<ul class="acts">${acts}</ul>` : (live ? `<ul class="acts"><li><span class="k">·</span><span>بيقرا ويفكّر… التفاصيل بتظهر أول بأول</span></li></ul>` : '')}
+      </div>`;
+    }).join('');
+  } else if (s.phase === 'checkpoint') {
+    el.innerHTML = `<div class="idle owner">الاتنين خلّصوا التصميم واتفقوا عليه، ومستنيين موافقتك. افتح "التصميم اللي اتفقوا عليه" فوق عشان تقراه.</div>`;
+  } else if (s.phase === 'done') {
+    el.innerHTML = `<div class="idle">الشغل خلص ✓ افتح "التقرير" عشان تشوف اللي اتعمل.</div>`;
+  } else {
+    el.innerHTML = `<div class="idle">مفيش حد شغال دلوقتي، والمنسّق بيجهّز الخطوة الجاية.</div>`;
+  }
+  tickTimers();
+  renderTicker(s);
+}
+
+// A small bar pinned to the bottom, so you always see who is working while reading the log.
+function renderTicker(s) {
+  const t = document.getElementById('ticker');
+  const nowPanel = document.getElementById('now').getBoundingClientRect();
+  const nowVisible = nowPanel.bottom > 0 && nowPanel.top < window.innerHeight;
+  const working = (s.running?.jobs || []).filter((j) => j.status === 'running');
+  if (!working.length && s.phase !== 'checkpoint') { t.classList.remove('show'); return; }
+  t.innerHTML = working.length
+    ? working.map((j) => {
+      const a = j.ran_as || j.agent;
+      const last = (j.activity || []).slice(-1)[0];
+      return `<span class="avatar ${a}">${a === 'claude' ? 'C' : 'X'}</span><span class="t-text">${NAME[a]} ${esc((DOING[s.running.step] || DOING.ask)(j.agent))}${last ? ` · ${esc(KIND[last.kind] || '')} ${esc(last.text)}` : ''}</span>`;
+    }).join('')
+    : '<span class="t-text">التصميم جاهز ومستني موافقتك</span>';
+  t.classList.toggle('show', !nowVisible);
+}
+document.getElementById('ticker').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+window.addEventListener('scroll', () => snapshot && renderTicker(snapshot), { passive: true });
+
+function renderFeed(s) {
+  const items = s.transcript || [];
+  const key = `${s.id}|${items.length}`;
+  if (key === lastFeedKey) return;
+  const feed = document.getElementById('feed');
+  const nearBottom = window.innerHeight + window.scrollY > document.body.scrollHeight - 200;
+  const start = lastFeedKey.startsWith(`${s.id}|`) ? Number(lastFeedKey.split('|')[1]) : 0;
+  if (!items.length) {
+    feed.innerHTML = '<div class="empty">لسه مفيش رسايل. أول ما حد يخلّص جولته هتظهر هنا.</div>';
+  } else {
+    if (start === 0) feed.innerHTML = '';
+    items.slice(start).forEach((m) => feed.appendChild(messageEl(m)));
+  }
+  lastFeedKey = key;
+  // Follow new messages only when you were already reading the bottom; the first load stays at the top.
+  if (start > 0 && nearBottom) window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+}
+
+function messageEl(m) {
+  const a = m.agent === 'codex' ? 'codex' : 'claude';
+  const div = document.createElement('div');
+  div.className = `msg ${a}`;
+  const long = (m.body || '').length > 700;
+  div.innerHTML = `
+    <span class="avatar ${a}">${a === 'claude' ? 'C' : 'X'}</span>
+    <div class="bubble">
+      <div class="meta"><strong>${esc(m.title)}</strong>${verdictBadge(m.body)}<span>${m.seconds ? `· ${clock(m.seconds)}` : ''}</span></div>
+      ${m.tldr ? `<p class="tldr">${esc(m.tldr)}</p>` : ''}
+      <div class="body md ${long ? 'clip' : ''}">${md(m.body)}</div>
+      ${long ? '<button class="more">اقرأ الكل</button>' : ''}
+    </div>`;
+  const btn = div.querySelector('.more');
+  if (btn) btn.addEventListener('click', () => {
+    const body = div.querySelector('.body');
+    const open = body.classList.toggle('clip');
+    btn.textContent = open ? 'اقرأ الكل' : 'اقفل';
+  });
+  return div;
+}
+
+function renderFiles(s) {
+  const labels = { design: 'التصميم اللي اتفقوا عليه', report: 'التقرير النهائي', request: 'الطلب' };
+  document.getElementById('files').innerHTML = Object.entries(s.files || {})
+    .filter(([, v]) => v).map(([k]) => `<button data-file="${k}">${labels[k] || k}</button>`).join('');
+  document.querySelectorAll('#files button').forEach((b) => b.addEventListener('click', () => openDoc(b.dataset.file, b.textContent)));
+}
+
+async function openDoc(name, title) {
+  const res = await fetch(`/api/file?name=${encodeURIComponent(name)}`);
+  const text = await res.text();
+  document.getElementById('doc-title').textContent = title;
+  document.getElementById('doc-body').innerHTML = md(text);
+  document.getElementById('doc').showModal();
+}
+
+function tickTimers() {
+  document.querySelectorAll('.timer[data-start]').forEach((t) => {
+    if (t.dataset.live === '1' && t.dataset.start) t.textContent = clock(since(t.dataset.start));
+    else if (t.dataset.sec) t.textContent = clock(Number(t.dataset.sec));
+  });
+  if (snapshot?.created) {
+    const end = snapshot.phase === 'done' && snapshot.finished ? Date.parse(snapshot.finished) : Date.now();
+    document.getElementById('total').textContent = `⏱ ${clock((end - Date.parse(snapshot.created)) / 1000)}`;
+  }
+}
+
+async function poll() {
+  try {
+    const res = await fetch('/api/live', { cache: 'no-store' });
+    const s = await res.json();
+    if (!s.id) {
+      document.getElementById('phase').textContent = 'مفيش اجتماع لسه';
+    } else {
+      snapshot = s;
+      if (s.id !== lastRun) { lastFeedKey = ''; lastRun = s.id; }
+      document.getElementById('phase').textContent = PHASE[s.phase] || s.phase;
+      document.getElementById('live-dot').className = `dot${s.running ? ' live' : ''}`;
+      const rq = document.getElementById('request');
+      rq.hidden = false;
+      rq.innerHTML = `<b>الطلب:</b> ${esc(s.request)}`;
+      renderSteps(s);
+      renderNow(s);
+      renderFiles(s);
+      renderFeed(s);
+    }
+  } catch (e) {
+    document.getElementById('phase').textContent = 'مش قادر يوصل للفريق…';
+  }
+  setTimeout(poll, 2000);
+}
+setInterval(tickTimers, 1000);
+poll();
+</script>
+</body>
+</html>

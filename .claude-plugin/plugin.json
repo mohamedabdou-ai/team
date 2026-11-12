@@ -1,0 +1,13 @@
+{
+  "name": "team",
+  "version": "1.0.0",
+  "description": "Claude and Codex work as one team on your code: they debate the design, build in parallel in separate git worktrees, and review each other's work with evidence. You approve the design once.",
+  "author": {
+    "name": "Mohammed Abdo",
+    "url": "https://github.com/Engmohammedabdo"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/Engmohammedabdo/team",
+  "repository": "https://github.com/Engmohammedabdo/team",
+  "keywords": ["claude", "codex", "multi-agent", "pair-programming", "code-review", "git-worktree", "arabic"]
+}
